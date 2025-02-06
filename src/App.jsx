@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Card from "./components/card";
 import um from "./assets/1.jpg";
 import tres from "./assets/3.jpg";
@@ -12,6 +13,16 @@ import dezoito from "./assets/18.jpeg";
 import dezenove from "./assets/19.jpeg";
 
 export default function Home() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 6000); // Tempo da splash screen (2 segundos)
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const cardsData = [
     { title: "O apoio que você sempre me deu", imageUrl: um },
     {
@@ -53,6 +64,14 @@ export default function Home() {
     { title: "Meu destino é te amar", subtitle: "vou cumprir ele" },
   ];
 
+  if (showSplash) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gradient-to-r from-pink-500 to-red-500 text-white text-4xl font-bold animate-fadeIn">
+        <h1 className="text-center">21 Motivos para te Amar</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-pink-100 text-pink-900">
       <div className="my-10 text-4xl font-bold text-center animate-fadeIn">
@@ -77,8 +96,8 @@ export default function Home() {
       </div>
       <p className="text-center text-lg mt-4 mb-4 px-4 font-semibold">
         Espero que essas lembranças façam você se sentir tão incrível quanto
-        você realmente é. Feliz aniversário Renata! Eu te amo muito e pra
-        sempre. 💘
+        você realmente é. Feliz aniversário, Renata! Eu te amo muito e pra
+        sempre.
       </p>
     </div>
   );
